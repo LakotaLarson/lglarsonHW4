@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block body %}
+<div>
+
+  <h3>Add A New Friend</h3>
+
+  <form method="POST" action="{{ url_for('add_dog') }}">
+
+    {{ form.csrf_token }}
+    {{ form.dogName.label }} {{ form.dogName(size=20) }}
+    {{ form.age.label }} {{ form.age(size=20) }}
+    {{ form.breed.label }} {{ form.breed(size=20) }}
+
+    <input type="submit" value="Add dog">
+
+  </form>
+
+</div>
+{% endblock %}
