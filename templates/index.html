@@ -5,6 +5,18 @@
 
 {% block body %}
 <p><a href="{{ url_for('.add_dog')}}"> Add a new dog</a>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div id='flash'>
+  {% for message in messages %}
+  <strong>Alert!</strong> {{ message }}
+  <button type="close" value="x">
+  </button>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+</div>
+
 {% if dogs %}
     <table>
         <thead>
@@ -13,6 +25,8 @@
                 <th>dogName</th>
                 <th>age</th>
                 <th>breed</th>
+
+
             </tr>
         </thead>
 
@@ -24,6 +38,12 @@
                 <td> {{ row.dogName }}</td>
                 <td> {{ row.age }}</td>
                 <td> {{ row.breed }}</td>
+
+      <td>
+        <form action="/delete_dog/{{ row.dogId }}" method="POST">
+          <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+      </td>
             </tr>
             {% endfor %}
         </tbody>

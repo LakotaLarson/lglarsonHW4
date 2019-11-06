@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, redirect
+from flask import render_template, redirect, request, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired
@@ -40,9 +40,23 @@ def add_dog():
         dog = lglarson_dogapp(dogName=form.dogName.data, age=form.age.data, breed=form.breed.data)
         db.session.add(dog)
         db.session.commit()
+        print('Dog was successully added!')
         return redirect('/')
 
     return render_template('add_dog.html', form=form, pageTitle='Add A New Dog')
+
+@app.route('/delete_dog/<int:dogId>', methods=['GET','POST'])
+def delete_dog(dogId):
+    if request.method == 'POST': #if it's a POST request, delete the friend from the database
+        obj = lglarson_dogapp.query.filter_by(dogId=dogId).first()
+        db.session.delete(obj)
+        db.session.commit()
+        flash('Dog was successfully deleted!')
+        return redirect("/")
+
+    else: #if it's a GET request, send them to the home page
+        return redirect("/")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
