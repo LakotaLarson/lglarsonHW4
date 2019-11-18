@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% block body %}
 <div>
+  <p><a href="{{ url_for('index')}}"> Home </a></p>
+  <h3>{{ legend }}</h3>
 
-  <h3>Add A New Dog</h3>
-
-  <form method="POST" action="{{ url_for('add_dog') }}">
+  <form method="POST" action="">
 
     {{ form.csrf_token }}
+
+    {{ form.dogId.label}} {{ form.dogId(size=20, readonly=true)}}
     {{ form.dogName.label }} {{ form.dogName(size=20) }}
     {{ form.age.label }} {{ form.age(size=20) }}
     {{ form.breed.label }} {{ form.breed(size=20) }}
 
-    <input type="submit" value="Add dog">
+    <input type="submit" value="Save" >
 
   </form>
 

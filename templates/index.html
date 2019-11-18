@@ -4,6 +4,12 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<form method ="POST">
+  <input type="text" autofocus="autofocus" name="search_string">
+  <input type="submit" formaction="/search" value="Search">
+</form>
+
+
 <p><a href="{{ url_for('.add_dog')}}"> Add a new dog</a>
 {% with messages = get_flashed_messages() %}
 {% if messages %}
@@ -21,10 +27,9 @@
     <table>
         <thead>
             <tr>
-                <th>dogId</th>
-                <th>dogName</th>
-                <th>age</th>
-                <th>breed</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Breed</th>
 
 
             </tr>
@@ -34,14 +39,13 @@
 
             {% for row in dogs %}      <tr>
 
-                <td> {{ row.dogId }}</td>
                 <td> {{ row.dogName }}</td>
                 <td> {{ row.age }}</td>
                 <td> {{ row.breed }}</td>
 
       <td>
-        <form action="/delete_dog/{{ row.dogId }}" method="POST">
-          <input type="submit" value="Delete" class="btn btn-danger" />
+        <form action="/dog/{{ row.dogId }}" method="POST">
+          <input type="submit" value="Details" class="btn btn-danger" />
         </form>
       </td>
             </tr>
