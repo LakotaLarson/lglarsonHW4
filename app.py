@@ -6,9 +6,13 @@ from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import or_
 import pymysql
-import secrets
+import os
 
-conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
+dbuser = os.environ.get('DBUSER')
+dbpass = os.environ.get('DBPASS')
+dbhost = os.environ.get('DBHOST')
+dbname = os.environ.get('DBNAME')
+conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(dbuser, dbpass, dbhost, dbname)
 
 
 app = Flask(__name__)
